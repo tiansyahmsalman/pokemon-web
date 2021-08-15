@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 export default function ModalSucces({modalSuccess, closeModal, pokemon, changeName, dialogEmpty, savePokemon}) {

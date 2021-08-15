@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {GET_POKEMONS} from '../graphql/query'
-import {useQuery} from '@apollo/client'
-import { Link } from 'react-router-dom';
+import {useQuery} from '@apollo/client';
 import ListPokemonCard from '../components/ListPokemonCard';
 
 export default function Home() {
 
       let [totalOwned, setTotalOwned] = useState(0)
       let [storagePokemon, setStoragePokemon] = useState([])
+      let [limitPokemon, setLimitPokemon] = useState(20)
 
       useEffect(() => {
         let pokemonOwned = localStorage.getItem('myPokemon')
@@ -24,7 +24,7 @@ export default function Home() {
       }, [])
 
       const gqlVariables = {
-          limit: 20,
+          limit: limitPokemon,
           offset: 1,
       };
     
@@ -32,16 +32,24 @@ export default function Home() {
         variables: gqlVariables
       })
 
+      function upLimit() {
+        setLimitPokemon(limitPokemon + 20)
+      }
+
       
       if (loading) {
         return (
-          <p>LOADING</p>
+          <div className="flex justify-center items-center">
+      <lottie-player src="https://assets8.lottiefiles.com/private_files/lf30_rBOODA.json" className="object-center object-cover"  background="transparent"  speed="1"  style={{maxWidth: "400px", maxHeight: "400px"}}  loop  autoplay></lottie-player>
+          </div>
           )
         }
         
         if (error) {
           return (
-            <p>ERROR</p>
+            <div className="text-center my-5">
+            <p className="text-2xl">ERROR 404</p>
+            </div>
             )
           }
           
@@ -69,6 +77,16 @@ export default function Home() {
               <ListPokemonCard key={index} pokemon={pokemon} ownedPokemon={showOwned(pokemon.name)} />
             ))}
           </div>
+
+          <div className="mt-8 flex justify-center">
+                  <button
+                    type="button"
+                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-yellow-900 bg-yellow-200 shadow-xl border border-transparent rounded-md hover:bg-yellow-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+                    onClick={upLimit}
+                  >
+                    Load More
+                  </button>
+                </div>
         </div>
       </div>
     );

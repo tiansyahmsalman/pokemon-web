@@ -1,8 +1,7 @@
 import { useQuery } from "@apollo/client";
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { GET_DETAIL_POKEMON } from "../graphql/query";
-import { Dialog, Transition } from "@headlessui/react";
 import toast, { Toaster } from "react-hot-toast";
 import ModalSucces from "../components/ModalSuccess";
 import ModalFail from "../components/ModalFail";
@@ -48,9 +47,9 @@ export default function Detail() {
     if (!pokemonName) {
       setDialogEmpty("you must add name");
     } else {
-      // console.log(pokemon)
+      
       let data = localStorage.getItem("myPokemon");
-      // console.log(data)
+
       if (!data) {
         newData.nickName = pokemonName;
         let payload = [newData];
@@ -66,10 +65,9 @@ export default function Detail() {
             return false;
           }
         });
-        console.log(check);
 
         if (check.includes(true)) {
-          setDialogEmpty(`you already have ${pokemonName}`);
+          setDialogEmpty(`you already have ${pokemonName} name`);
         } else {
           newData.nickName = pokemonName;
           let payload = [...oldData, newData];
@@ -86,8 +84,20 @@ export default function Detail() {
   }
 
   if (loading) {
-    return <div>LOADING</div>;
+    return (
+      <div className="flex justify-center items-center">
+  <lottie-player src="https://assets8.lottiefiles.com/private_files/lf30_rBOODA.json" className="object-center object-cover"  background="transparent"  speed="1"  style={{maxWidth: "400px", maxHeight: "400px"}}  loop  autoplay></lottie-player>
+      </div>
+      )
   }
+
+  if (error) {
+    return (
+      <div className="text-center my-5">
+      <p className="text-2xl">ERROR 404</p>
+      </div>
+      )
+    }
 
   return (
     <>

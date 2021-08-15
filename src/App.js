@@ -1,6 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import Navbar from './components/Navbar';
 import {Switch, Route, useLocation} from 'react-router-dom'
 import Home from './pages/Home';
@@ -14,7 +12,7 @@ function App() {
   console.log(location)
 
   return (
-    <div className="App">
+    <div>
       <Navbar />
       <Switch>
         <Route exact path="/">

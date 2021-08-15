@@ -8,8 +8,8 @@ export default function Navbar() {
 
           <div className="flex items-center justify-between mx-5 py-4">
             <Link to="/">
-                <div className="h-10 w-10">
-                    <img src={logo} alt="oke"/>
+                <div>
+                    <img src={logo} style={{ width: "50px", height: "50px" }} alt="oke"/>
                 </div>
             </Link>
 
