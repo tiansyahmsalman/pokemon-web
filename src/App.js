@@ -1,31 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {GET_POKEMONS} from './graphql/query'
-import {useQuery} from '@apollo/client'
 import Navbar from './components/Navbar';
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, useLocation} from 'react-router-dom'
 import Home from './pages/Home';
+import Detail from './pages/Detail';
+import MyPokemon from './pages/MyPokemon';
 
-function App() {
+function App() { 
 
-  const gqlVariables = {
-    limit: 5,
-    offset: 1,
-  };
-  const {loading, error, data} = useQuery(GET_POKEMONS, {
-    variables: gqlVariables
-  })
+  let location = useLocation()
 
-  if (loading) {
-    console.log('loading')
-  }
-
-  if (error) {
-    console.log('error')
-  }
-
-  console.log(data)
+  console.log(location)
 
   return (
     <div className="App">
@@ -33,6 +19,12 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Home />
+        </Route>
+        <Route path="/pokemon/:name">
+          <Detail />
+        </Route>
+        <Route path="/mypokemon">
+          <MyPokemon />
         </Route>
       </Switch>
     </div>

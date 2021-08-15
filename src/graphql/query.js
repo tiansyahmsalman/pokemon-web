@@ -16,3 +16,24 @@ query pokemons($limit: Int, $offset: Int) {
   }
 }
 `;
+
+export const GET_DETAIL_POKEMON = gql `
+query pokemon($name: String!) {
+  pokemon(name: $name) {
+    id
+    name
+    sprites {
+      front_default
+    }
+    moves {
+      move {
+        name
+      }
+    }
+    types {
+      type {
+        name
+      }
+    }
+  }
+}`

@@ -3,20 +3,20 @@ import logo from '../pokeball.svg'
 
 export default function Navbar() {
   return (
-    <div className="bg-current font-sans m-0">
-      <div className="bg-current shadow">
+    <div className="bg-yellow-300 font-sans m-0">
+      <div className="bg-yellow-200 shadow">
 
           <div className="flex items-center justify-between mx-5 py-4">
             <Link to="/">
-                <div className="h-10 w-10 mr-10">
+                <div className="h-10 w-10">
                     <img src={logo} alt="oke"/>
                 </div>
             </Link>
 
             <div className="flex items-center">
               <Link
-                to="/my-pokemon"
-                className="text-white text-xs font-semibold border px-2 py-2 rounded-lg hover:text-purple-600 hover:border-purple-600"
+                to="/mypokemon"
+                className="text-black text-sm font-semibold border border-black px-2 py-2 rounded-lg hover:text-yellow-900 hover:border-yellow-900"
               >
                 My Pokemon
               </Link>
