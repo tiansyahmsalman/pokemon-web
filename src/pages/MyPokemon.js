@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Swal from "sweetalert2"
+import MyPokemonCard from "../components/MyPokemonCard"
 
 export default function MyPokemon() {
 
     let [myPokemon, setMyPokemon] = useState([])
     
-    let data = localStorage.getItem('myPokemon')
-
+    
     useEffect(() => {
+        let data = localStorage.getItem('myPokemon')
         setMyPokemon(JSON.parse(data))
-    }, [data])
+    }, [])
 
     function release(name) {
         let newData = JSON.parse(JSON.stringify(myPokemon))
@@ -60,33 +61,13 @@ export default function MyPokemon() {
     return (
         <div className="bg-white">
         <div className="max-w-2xl mx-auto py-10 px-10 sm:py-14 sm:px-6 lg:max-w-7xl lg:px-8">
-          <div className="pb-5">
-          <h1 className="text-2xl font-serif">POKEMON</h1>
-          <p>total owned: 0</p>
+          <div className="pb-5 mb-2">
+          <h1 className="text-2xl font-serif">MY POKEMON</h1>
           </div>
 
           <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
             {myPokemon.map((pokemon, index) => (
-              <div key={index} className="group">
-                <div className="w-full bg-white shadow-2xl rounded-lg overflow-hidden transition duration-500 ease-in-out transform hover:scale-110 hover:bg-gray-100">
-                  <img
-                    src={pokemon.sprites.front_default}
-                    alt={pokemon.name}
-                    className="w-full h-full object-center object-cover"
-                  />
-                  <div className="flex flex-col justify-end items-center bg-gradient-to-t from-yellow-200 pb-2">
-                    <h3 className="mt-2 text-2xl text-gray-700">{pokemon.nickName}</h3>
-                    <p className="text-sm">{pokemon.name}</p>
-                    <button
-                    onClick={() => release(pokemon.nickName)}
-                    type="button"
-                    className="inline-flex justify-center px-4 py-1 mt-2 rounded-full text-sm font-medium text-red-900 bg-red-300 border border-transparent hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                  >
-                    Release
-                  </button>
-                  </div>
-                </div>
-              </div>
+                <MyPokemonCard key={index} pokemon={pokemon} release={release} />
             ))}
           </div>
         </div>
