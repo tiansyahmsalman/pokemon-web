@@ -5,6 +5,7 @@ import { GET_DETAIL_POKEMON } from "../graphql/query";
 import { Dialog, Transition } from "@headlessui/react";
 import toast, { Toaster } from "react-hot-toast";
 import ModalSucces from "../components/ModalSuccess";
+import ModalFail from "../components/ModalFail";
 
 export default function Detail() {
   let { name } = useParams();
@@ -80,7 +81,7 @@ export default function Detail() {
     }
   }
 
-  function chamgeName(name) {
+  function changeName(name) {
     setPokemonName(name);
   }
 
@@ -147,78 +148,16 @@ export default function Detail() {
           >
             <img
               className="object-cover object-center w-full h-full rounded-full"
-              src="https://i.pinimg.com/originals/60/fd/e8/60fde811b6be57094e0abc69d9c2622a.jpg"
+              src="http://pngimg.com/uploads/pokeball/pokeball_PNG30.png"
               alt="catch"
             />
           </button>
         </div>
       </div>
 
-      <ModalSucces />
-
+      <ModalSucces modalSuccess={modalSuccess} closeModal={() => {closeModal()}} pokemon={data.pokemon} changeName={changeName} dialogEmpty={dialogEmpty} savePokemon={savePokemon}/>
       
-
-      <Transition appear show={modalFail} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={closeModalFail}
-        >
-          <div className="min-h-screen px-4 text-center mx-5 md:mx-0">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-30" />
-            </Transition.Child>
-
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
-                >
-                  Noo
-                </Dialog.Title>
-                <div className="mt-2">
-                  <p className="text-md text-black">
-                    {data.pokemon.name} run!!
-                  </p>
-                </div>
-
-                <div className="mt-4 flex justify-center">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                    onClick={closeModalFail}
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
+      <ModalFail modalFail={modalFail} closeModalFail={() => {closeModalFail()}} pokemon={data.pokemon} />
 
       <Toaster />
     </>

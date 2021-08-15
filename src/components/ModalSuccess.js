@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-export default function ModalSucces() {
+export default function ModalSucces({modalSuccess, closeModal, pokemon, changeName, dialogEmpty, savePokemon}) {
     return (
         <Transition appear show={modalSuccess} as={Fragment}>
         <Dialog
@@ -46,14 +46,14 @@ export default function ModalSucces() {
                 </Dialog.Title>
                 <div className="mt-2">
                   <p className="text-sm text-black">
-                    {data.pokemon.name} was caught!
+                    {pokemon.name} was caught!
                   </p>
                 </div>
                 <div className="w-full md:mb-0">
                   <div className="relative">
                     <div className="flex justify-center items-center">
                       <img
-                        src={data.pokemon.sprites.front_default}
+                        src={pokemon.sprites.front_default}
                         className="w-3/4"
                         alt=""
                       />
@@ -68,7 +68,7 @@ export default function ModalSucces() {
                       className="w-full py-1 pl-2 border-0 focus:outline-none"
                       type="text"
                       onChange={(e) => {
-                        chamgeName(e.target.value);
+                        changeName(e.target.value);
                       }}
                       required
                     />
@@ -92,7 +92,7 @@ export default function ModalSucces() {
                     type="button"
                     className="inline-flex justify-center px-4 py-2 mx-1 text-sm font-medium text-yellow-900 bg-yellow-200 border border-transparent rounded-md hover:bg-yellow-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
                     onClick={() => {
-                      savePokemon(data.pokemon);
+                      savePokemon(pokemon);
                     }}
                   >
                     Save
